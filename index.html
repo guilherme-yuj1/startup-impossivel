@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Windows Update</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='%230078d7' d='M0 2.22 6.55 1.3v6.33H0V2.22zm7.39-1.42L16 0v7.63H7.39V.8zm-7.39 7.6h6.55v6.36L0 13.84V8.4zm7.39 0H16v7.6l-8.61-.83V8.4z'/></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="noselect">
+  <!-- Fullscreen / Audio Banner Hint (fades out) -->
+
+  <!-- Main Windows Update Screen -->
+  <main id="update-screen" class="screen-container">
+    <div class="update-content">
+      <!-- Windows 10/11 Iconic Circular Spinner -->
+      <div class="win-spinner" aria-hidden="true">
+        <div class="dot dot1"></div>
+        <div class="dot dot2"></div>
+        <div class="dot dot3"></div>
+        <div class="dot dot4"></div>
+        <div class="dot dot5"></div>
+        <div class="dot dot6"></div>
+      </div>
+
+      <h1 id="status-title" class="status-title">Trabalhando nas atualizações</h1>
+
+      <div class="progress-details">
+        <div class="percent-display" id="percent-display">0% concluído</div>
+        <div class="sub-counter" id="sub-counter">(0 / 100)</div>
+      </div>
+
+      <!-- Real-time Progress Bar -->
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+
+      <!-- Live troll messages -->
+      <p id="status-subtext" class="status-subtext">Não desligue o computador. Isso pode demorar um pouco.</p>
+
+    </div>
+
+    <footer class="update-footer">
+      <span>Seu computador poderá ser reiniciado várias vezes.</span>
+    </footer>
+  </main>
+
+  <!-- Glitch / Crash Overlay when reaching target -->
+  <div id="glitch-overlay" class="glitch-overlay hidden"></div>
+
+  <!-- Windows Fake Error Modal -->
+  <div id="error-dialog" class="win-modal-backdrop hidden">
+    <div class="win-modal-window">
+      <div class="win-modal-header">
+        <div class="win-modal-title">
+          <svg class="win-icon" viewBox="0 0 16 16"><path fill="#0078d7" d="M0 2.22 6.55 1.3v6.33H0V2.22zm7.39-1.42L16 0v7.63H7.39V.8zm-7.39 7.6h6.55v6.36L0 13.84V8.4zm7.39 0H16v7.6l-8.61-.83V8.4z"/></svg>
+          Atualizações do Windows
+        </div>
+        <button class="win-modal-close" id="btn-modal-close">&times;</button>
+      </div>
+      <div class="win-modal-body">
+        <div class="win-error-icon">❌</div>
+        <div class="win-error-text">
+          <h3 id="modal-title">Falha na Instalação do Pacote</h3>
+          <p id="modal-desc">Ocorreu uma inconsistência no registro de dados (Erro 0x80240020). Todas as alterações foram revertidas para garantir a integridade.</p>
+          <p class="win-error-sub" id="modal-next">O Windows precisa recompilar as dependências com <strong>1.000</strong> verificações de integridade.</p>
+        </div>
+      </div>
+      <div class="win-modal-footer">
+        <button class="win-btn win-btn-primary" id="btn-try-again">Tentar Novamente</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BSOD Screen (Blue Screen of Death - 1.000.000 Clicks Target) -->
+  <section id="bsod-screen" class="bsod-container hidden">
+    <div class="bsod-content">
+      <div class="bsod-sad-face">:(</div>
+      <h1 class="bsod-title">Seu computador encontrou um problema e precisa ser reiniciado.</h1>
+      <p class="bsod-subtitle">Estamos apenas coletando algumas informações sobre o erro e, em seguida, reiniciaremos para você.</p>
+      
+      <div class="bsod-progress" id="bsod-progress-text">100% concluído</div>
+
+      <div class="bsod-footer">
+        <div class="bsod-qr-code">
+          <!-- Stylized QR Code SVG -->
+          <svg viewBox="0 0 100 100" class="qr-svg">
+            <rect width="100" height="100" fill="#0078d7"/>
+            <path fill="#ffffff" d="M10 10h30v30h-30z M15 15v20h20v-20z M20 20h10v10h-10z M60 10h30v30h-30z M65 15v20h20v-20z M70 20h10v10h-10z M10 60h30v30h-30z M15 65v20h20v-20z M20 70h10v10h-10z M45 10h10v10h-10z M45 30h10v10h-10z M10 45h10v10h-10z M30 45h10v10h-10z M60 45h10v10h-10z M80 45h10v10h-10z M45 60h10v10h-10z M45 80h10v10h-10z M60 60h30v10h-30z M60 75h10v15h-10z M75 75h15v15h-15z"/>
+          </svg>
+        </div>
+        <div class="bsod-details">
+          <p>Para obter mais informações sobre este problema e possíveis correções, visite https://windows.com/stopcode</p>
+          <p>Se você chamar um técnico de suporte, forneça estas informações:</p>
+          <p><strong>Código de parada:</strong> PERSISTENCIA_INCRIVEL_MAS_INUTIL</p>
+          <p><strong>O que falhou:</strong> paciencia_humana.sys (Erro: 1000000_CLICKS_OVERFLOW)</p>
+          <p class="bsod-troll-trophy">🏆 Parabéns! Você é oficialmente a pessoa mais teimosa do planeta!</p>
+        </div>
+      </div>
+      
+      <div class="bsod-restart-box">
+        <button id="btn-reboot" class="win-btn-reboot">Reiniciar Sistema</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Secret Dev / Cheat Menu (hidden by default, toggle with Ctrl+Shift+C or ~ or 3x click on footer) -->
+  <div id="cheat-menu" class="cheat-menu hidden">
+    <h4>🔧 Menu do Troll (Testes)</h4>
+    <p>Use para testar ou pular fases sem estragar o mouse:</p>
+    <div class="cheat-buttons">
+      <button id="cheat-add-progress">+50%</button>
+      <button id="cheat-complete-level">Completar Nível</button>
+      <button id="cheat-autoclicker">⚡ Turbo Auto-Clicker: <span id="autoclick-status">OFF</span></button>
+      <button id="cheat-bsod">💀 Ir Direto para BSOD</button>
+      <button id="cheat-reset">🔄 Resetar Tudo</button>
+    </div>
+    <div class="cheat-hint">Atalho: Tecla <b>~</b> (til) ou <b>Ctrl+Shift+X</b></div>
+  </div>
+
+  <!-- Audio and Main Logic Scripts -->
+  <script src="audio.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
